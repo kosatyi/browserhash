@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night-bright.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="dist/browserhash.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            margin: 0;
+            background-color: #151515;
+            color: #fff;
+            font-family: monospace;
+        }
+        pre {
+            margin: 0.5rem;
+            border: 1px solid #202020;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    var wrapper = document.querySelector('body');
+    var append = function (object) {
+        var pre = document.createElement('pre');
+        var code = document.createElement('code');
+        code.className = 'json';
+        code.innerHTML = JSON.stringify(object, null, 2);
+        pre.appendChild(code);
+        wrapper.appendChild(pre);
+        hljs.highlightBlock(code);
+    };
+
+    BrowserHash.then(function(data){
+        append(data);
+    });
+
+    BrowserHash.then(function(data){
+        console.log(this.base64(data));
+    });
+
+    BrowserHash.then(function(data){
+        console.log(data);
+    });
+
+    BrowserHash.then(function(data){
+        console.log(data);
+    });
+
+    BrowserHash.then(function(data){
+        console.log(data);
+    });
+
+    BrowserHash.then(function(data){
+        console.log(data);
+    });
+
+</script>
+</body>
+</html>
