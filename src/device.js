@@ -144,7 +144,7 @@
     };
 
     device.portrait = function() {
-        if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+        if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('portrait')
         } else {
             return window.innerHeight / window.innerWidth > 1
@@ -152,7 +152,7 @@
     };
 
     device.landscape = function() {
-        if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange')) {
+        if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('landscape')
         } else {
             return window.innerHeight / window.innerWidth < 1
