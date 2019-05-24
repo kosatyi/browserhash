@@ -39,11 +39,13 @@
         wrapper.appendChild(pre);
         hljs.highlightBlock(code);
     };
-
+    var start = new Date().getTime();
     BrowserHash.then(function(data){
+        append({
+            time:String((new Date().getTime()-start)).concat(' ms')
+        })
         append(data);
     });
-
 </script>
 </body>
 </html>

@@ -1,62 +1,56 @@
 (function () {
 
-    var WATERFALL_TIMEOUT = 0;
-
     function waterfall(stack, callback, context) {
         var list = stack, result = {};
         (function (index) {
             var next, key, call;
             if (!list[index]) return callback.call(context, result);
-            key  = list[index].key;
+            key = list[index].key;
             call = list[index].callback;
             next = arguments.callee;
             try {
                 call(function (value) {
                     result[key] = value;
-                    setTimeout(function(){
-                        next(++index);
-                    },WATERFALL_TIMEOUT);
+                    next(++index);
                 });
             } catch (e) {
                 result[key] = e;
-                setTimeout(function(){
-                    next(++index);
-                },WATERFALL_TIMEOUT);
+                next(++index);
             }
         })(0);
     }
 
     function Component() {
-        this.stack     = [];
+        this.stack = [];
         this.callbacks = [];
-        this.hash      = null;
-        this.data      = null;
+        this.hash = null;
+        this.data = null;
     }
 
     Component.prototype = {
-        then: function ( fn ){
-            if(this.hash && this.data) return this.callback(fn);
-            this.callbacks.push( fn );
+        then: function (fn) {
+            if (this.hash && this.data) return this.callback(fn);
+            this.callbacks.push(fn);
             return this.fetch();
         },
-        fetch:function(){
-            if(this.init) return this;
+        fetch: function () {
+            if (this.init) return this;
             this.init = true;
-            waterfall(this.stack, function (data){
+            waterfall(this.stack, function (data) {
                 this.data = data;
-                this.hash = x64hash128(this.values(data),31);
+                this.hash = x64hash128(this.values(data), 31);
                 this.run();
-            }, this );
+            }, this);
             return this;
         },
-        run:function(){
-            this.callbacks.forEach(this.callback,this);
+        run: function () {
+            this.callbacks.forEach(this.callback, this);
         },
-        base64:function(data){
+        base64: function (data) {
             return Base64.encode(JSON.stringify(data));
         },
-        callback:function(fn){
-            fn.call(this,{
+        callback: function (fn) {
+            fn.call(this, {
                 id: this.hash,
                 data: this.data
             });
@@ -67,7 +61,7 @@
             for (prop in data) {
                 if (data.hasOwnProperty(prop)) {
                     value = data[prop];
-                    if (typeof(value) === 'object') {
+                    if (typeof (value) === 'object') {
                         list.push(this.values(value));
                     } else {
                         list.push(value);
@@ -189,6 +183,10 @@
 
     browserHash.add('webgl', function (next) {
         next(x64hash128(getWebglHash(), 31));
+    });
+
+    browserHash.add('audio_hash', function (next) {
+        audioFingerprint(next);
     });
 
     browserHash.add('webgl_vendor', function (next) {

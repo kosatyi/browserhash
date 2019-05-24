@@ -1,5 +1,4 @@
 (function(){
-
     if (!('bind' in Function.prototype)) {
         Function.prototype.bind = function(owner) {
             var that = this;
@@ -83,8 +82,7 @@
                     return true;
             return false;
         };
-    };
-
+    }
 })();
 (function () {
     this.Base64 = {
@@ -1430,16 +1428,12 @@
         }, 1000);
     }
 })();
-(function(){
+(function () {
 
     var previousDevice = window.device;
     var device = {};
     var changeOrientationList = [];
-
-
-
     var userAgent = window.navigator.userAgent.toLowerCase();
-
     var television = [
         'googletv',
         'viera',
@@ -1458,87 +1452,87 @@
         'ce-html'
     ];
 
-    device.macos = function() {
+    device.macos = function () {
         return find('mac')
     };
 
-    device.ios = function() {
+    device.ios = function () {
         return device.iphone() || device.ipod() || device.ipad()
     };
 
-    device.iphone = function() {
+    device.iphone = function () {
         return !device.windows() && find('iphone')
     };
 
-    device.ipod = function() {
+    device.ipod = function () {
         return find('ipod')
     };
 
-    device.ipad = function() {
+    device.ipad = function () {
         return find('ipad')
     };
 
-    device.android = function() {
+    device.android = function () {
         return !device.windows() && find('android')
     };
 
-    device.androidPhone = function() {
+    device.androidPhone = function () {
         return device.android() && find('mobile')
     };
 
-    device.androidTablet = function() {
+    device.androidTablet = function () {
         return device.android() && !find('mobile')
     };
 
-    device.blackberry = function() {
+    device.blackberry = function () {
         return find('blackberry') || find('bb10') || find('rim')
     };
 
-    device.blackberryPhone = function() {
+    device.blackberryPhone = function () {
         return device.blackberry() && !find('tablet')
     };
 
-    device.blackberryTablet = function() {
+    device.blackberryTablet = function () {
         return device.blackberry() && find('tablet')
     };
 
-    device.windows = function() {
+    device.windows = function () {
         return find('windows')
     };
 
-    device.windowsPhone = function() {
+    device.windowsPhone = function () {
         return device.windows() && find('phone')
     };
 
-    device.windowsTablet = function() {
+    device.windowsTablet = function () {
         return device.windows() && (find('touch') && !device.windowsPhone())
     };
 
-    device.fxos = function() {
+    device.fxos = function () {
         return (find('(mobile') || find('(tablet')) && find(' rv:')
     };
 
-    device.fxosPhone = function() {
+    device.fxosPhone = function () {
         return device.fxos() && find('mobile')
     };
 
-    device.fxosTablet = function() {
+    device.fxosTablet = function () {
         return device.fxos() && find('tablet')
     };
 
-    device.meego = function() {
+    device.meego = function () {
         return find('meego')
     };
 
-    device.cordova = function() {
+    device.cordova = function () {
         return window.cordova && location.protocol === 'file:'
     };
 
-    device.nodeWebkit = function() {
+    device.nodeWebkit = function () {
         return typeof window.process === 'object'
     };
 
-    device.mobile = function() {
+    device.mobile = function () {
         return (
             device.androidPhone() ||
             device.iphone() ||
@@ -1550,7 +1544,7 @@
         )
     };
 
-    device.tablet = function() {
+    device.tablet = function () {
         return (
             device.ipad() ||
             device.androidTablet() ||
@@ -1560,11 +1554,11 @@
         )
     };
 
-    device.desktop = function() {
+    device.desktop = function () {
         return !device.tablet() && !device.mobile()
     };
 
-    device.television = function() {
+    device.television = function () {
         var i = 0;
         while (i < television.length) {
             if (find(television[i])) {
@@ -1575,7 +1569,7 @@
         return false
     };
 
-    device.portrait = function() {
+    device.portrait = function () {
         if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('portrait')
         } else {
@@ -1583,7 +1577,7 @@
         }
     };
 
-    device.landscape = function() {
+    device.landscape = function () {
         if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('landscape')
         } else {
@@ -1591,7 +1585,7 @@
         }
     };
 
-    device.noConflict = function() {
+    device.noConflict = function () {
         window.device = previousDevice;
         return this
     };
@@ -1615,7 +1609,7 @@
         }
     }
 
-    device.onChangeOrientation = function(cb) {
+    device.onChangeOrientation = function (cb) {
         if (typeof cb === 'function') {
             changeOrientationList.push(cb)
         }
@@ -1846,9 +1840,7 @@
 
 })();
 (function () {
-
     var baseFonts = ['monospace', 'sans-serif', 'serif'];
-
     var fontList = [
         'Andale Mono', 'Arial', 'Arial Black', 'Arial Hebrew', 'Arial MT', 'Arial Narrow', 'Arial Rounded MT Bold', 'Arial Unicode MS',
         'Bitstream Vera Sans Mono', 'Book Antiqua', 'Bookman Old Style',
@@ -1863,7 +1855,6 @@
         'Tahoma', 'Times', 'Times New Roman', 'Times New Roman PS', 'Trebuchet MS',
         'Verdana', 'Wingdings', 'Wingdings 2', 'Wingdings 3'
     ];
-
     var extendedFontList = [
         'Abadi MT Condensed Light', 'Academy Engraved LET', 'ADOBE CASLON PRO', 'Adobe Garamond', 'ADOBE GARAMOND PRO', 'Agency FB', 'Aharoni', 'Albertus Extra Bold', 'Albertus Medium', 'Algerian', 'Amazone BT', 'American Typewriter',
         'American Typewriter Condensed', 'AmerType Md BT', 'Andalus', 'Angsana New', 'AngsanaUPC', 'Antique Olive', 'Aparajita', 'Apple Chancery', 'Apple Color Emoji', 'Apple SD Gothic Neo', 'Arabic Typesetting', 'ARCHER',
@@ -1898,44 +1889,71 @@
         'ZapfEllipt BT', 'ZapfHumnst BT', 'ZapfHumnst Dm BT', 'Zapfino', 'Zurich BlkEx BT', 'Zurich Ex BT', 'ZWAdobeF'];
 
 
+
+    var forEach = function(object,callback){
+        var prop;
+        if(typeof(object) === 'object' && typeof(callback) === 'function' ){
+            for(prop in object){
+                if(object.hasOwnProperty(prop)){
+                    callback(object[prop],prop,object);
+                }
+            }
+        }
+    };
+
+    var createElement = function(name,styles,attributes){
+        var el = document.createElement(name);
+        forEach(styles,function(item,index){
+            el.style[index] = item;
+        });
+        forEach(attributes,function(item,index){
+            el.setAttribute(index,item);
+        });
+        return el;
+    };
+    var spanString = 'mmmmmmmmmmlli';
+    var spanSize = '72px';
+    var spanElement     = null;
+    var createSpan = function () {
+        if( spanElement ) return spanElement.cloneNode(true);
+        spanElement = createElement('span',{
+            position: 'absolute',
+            left:'-9999px',
+            fontSize: spanSize,
+            fontStyle:'normal',
+            fontWeight:'normal',
+            letterSpacing:'normal',
+            lineBreak:'auto',
+            lineHeight:'normal',
+            textTransform:'textTransform',
+            textAlign:'left',
+            textDecoration:'none',
+            textShadow:'none',
+            whiteSpace:'normal',
+            wordBreak:'normal',
+            wordSpacing:'normal'
+        });
+        spanElement.innerHTML = spanString;
+        return spanElement;
+    };
+
+    var createSpanWithFonts = function (fontToDetect, baseFont) {
+        var s = createSpan();
+        s.style.fontFamily = "'" + fontToDetect + "'," + baseFont;
+        return s;
+    };
+
     this.getAvailableFonts = function (list) {
         fontList = fontList.concat(extendedFontList);
         fontList = fontList.concat(list || []);
         fontList = fontList.filter(function (font, position) {
             return fontList.indexOf(font) === position
         });
-        var testString = 'mmmmmmmmmmlli';
-        var testSize = '72px';
         var h = document.getElementsByTagName('body')[0];
-        var baseFontsDiv = document.createElement('div');
-        var fontsDiv = document.createElement('div');
+        var baseFontsDiv = createElement('div');
+        var fontsDiv     = createElement('div');
         var defaultWidth = {};
         var defaultHeight = {};
-        var createSpan = function () {
-            var s = document.createElement('span');
-            s.style.position = 'absolute';
-            s.style.left = '-9999px';
-            s.style.fontSize = testSize;
-            s.style.fontStyle = 'normal';
-            s.style.fontWeight = 'normal';
-            s.style.letterSpacing = 'normal';
-            s.style.lineBreak = 'auto';
-            s.style.lineHeight = 'normal';
-            s.style.textTransform = 'none';
-            s.style.textAlign = 'left';
-            s.style.textDecoration = 'none';
-            s.style.textShadow = 'none';
-            s.style.whiteSpace = 'normal';
-            s.style.wordBreak = 'normal';
-            s.style.wordSpacing = 'normal';
-            s.innerHTML = testString;
-            return s
-        };
-        var createSpanWithFonts = function (fontToDetect, baseFont) {
-            var s = createSpan();
-            s.style.fontFamily = "'" + fontToDetect + "'," + baseFont;
-            return s;
-        };
         var initializeBaseFontsSpans = function () {
             var spans = [];
             for (var index = 0, length = baseFonts.length; index < length; index++) {
@@ -1962,7 +1980,8 @@
         var isFontAvailable = function (fontSpans) {
             var detected = false;
             for (var i = 0; i < baseFonts.length; i++) {
-                detected = (fontSpans[i].offsetWidth !== defaultWidth[baseFonts[i]] || fontSpans[i].offsetHeight !== defaultHeight[baseFonts[i]]);
+                detected = (fontSpans[i].offsetWidth !== defaultWidth[baseFonts[i]] ||
+                            fontSpans[i].offsetHeight !== defaultHeight[baseFonts[i]] );
                 if (detected) {
                     return detected
                 }
@@ -1971,23 +1990,24 @@
         };
         var baseFontsSpans = initializeBaseFontsSpans();
         h.appendChild(baseFontsDiv);
-        for (var index = 0, length = baseFonts.length; index < length; index++) {
-            defaultWidth[baseFonts[index]] = baseFontsSpans[index].offsetWidth;
-            defaultHeight[baseFonts[index]] = baseFontsSpans[index].offsetHeight;
-        }
+        forEach(baseFonts,function(item,index){
+            defaultWidth[item]  = baseFontsSpans[index].offsetWidth;
+            defaultHeight[item] = baseFontsSpans[index].offsetHeight;
+        });
         var fontsSpans = initializeFontsSpans();
         h.appendChild(fontsDiv);
         var available = [];
-        for (var i = 0, l = fontList.length; i < l; i++) {
-            if (isFontAvailable(fontsSpans[fontList[i]])) {
-                available.push(fontList[i])
+        forEach(fontList,function(item){
+            if (isFontAvailable(fontsSpans[item])) {
+                available.push(item);
             }
-        }
+        });
         h.removeChild(fontsDiv);
         h.removeChild(baseFontsDiv);
         return available;
     };
 })();
+
 
 (function(){
 
@@ -2199,6 +2219,82 @@
         }
     }
 })();
+(function () {
+
+    var context = null;
+    var currentTime = null;
+    var oscillator = null;
+    var compressor = null;
+    var fingerprint = null;
+    var callback = null;
+    function setup()
+    {
+        setContext();
+        currentTime = context.currentTime;
+        setOscillator();
+        setCompressor();
+    }
+    function setContext()
+    {
+        var audioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+        context = new audioContext(1, 44100, 44100);
+    }
+    function setOscillator()
+    {
+        oscillator = context.createOscillator();
+        oscillator.type = "triangle";
+        oscillator.frequency.setValueAtTime(10000, currentTime);
+    }
+    function setCompressor()
+    {
+        compressor = context.createDynamicsCompressor();
+
+        setCompressorValueIfDefined('threshold', -50);
+        setCompressorValueIfDefined('knee', 40);
+        setCompressorValueIfDefined('ratio', 12);
+        setCompressorValueIfDefined('reduction', -20);
+        setCompressorValueIfDefined('attack', 0);
+        setCompressorValueIfDefined('release', .25);
+    }
+    function setCompressorValueIfDefined(item, value)
+    {
+        if (compressor[item] !== undefined && typeof compressor[item].setValueAtTime === 'function') {
+            compressor[item].setValueAtTime(value, context.currentTime);
+        }
+    }
+    function onComplete(event)
+    {
+        generateFingerprints(event);
+        compressor.disconnect();
+    }
+    function generateFingerprints(event)
+    {
+        var output = null;
+        for (var i = 4500; 5e3 > i; i++) {
+            var channelData = event.renderedBuffer.getChannelData(0)[i];
+            output += Math.abs(channelData);
+        }
+        fingerprint = output.toString();
+        if (typeof callback === 'function') {
+            return callback(fingerprint);
+        }
+    }
+    this.audioFingerprint = function(next){
+        callback = next;
+        try {
+            setup();
+            oscillator.connect(compressor);
+            compressor.connect(context.destination);
+            oscillator.start(0);
+            context.startRendering();
+            context.oncomplete = onComplete;
+        } catch (e) {
+            callback();
+            throw e;
+        }
+    };
+})();
+
 (function(){
 
     function getWebglCanvas() {
@@ -2408,63 +2504,57 @@
 })();
 (function () {
 
-    var WATERFALL_TIMEOUT = 0;
-
     function waterfall(stack, callback, context) {
         var list = stack, result = {};
         (function (index) {
             var next, key, call;
             if (!list[index]) return callback.call(context, result);
-            key  = list[index].key;
+            key = list[index].key;
             call = list[index].callback;
             next = arguments.callee;
             try {
                 call(function (value) {
                     result[key] = value;
-                    setTimeout(function(){
-                        next(++index);
-                    },WATERFALL_TIMEOUT);
+                    next(++index);
                 });
             } catch (e) {
                 result[key] = e;
-                setTimeout(function(){
-                    next(++index);
-                },WATERFALL_TIMEOUT);
+                next(++index);
             }
         })(0);
     }
 
     function Component() {
-        this.stack     = [];
+        this.stack = [];
         this.callbacks = [];
-        this.hash      = null;
-        this.data      = null;
+        this.hash = null;
+        this.data = null;
     }
 
     Component.prototype = {
-        then: function ( fn ){
-            if(this.hash && this.data) return this.callback(fn);
-            this.callbacks.push( fn );
+        then: function (fn) {
+            if (this.hash && this.data) return this.callback(fn);
+            this.callbacks.push(fn);
             return this.fetch();
         },
-        fetch:function(){
-            if(this.init) return this;
+        fetch: function () {
+            if (this.init) return this;
             this.init = true;
-            waterfall(this.stack, function (data){
+            waterfall(this.stack, function (data) {
                 this.data = data;
-                this.hash = x64hash128(this.values(data),31);
+                this.hash = x64hash128(this.values(data), 31);
                 this.run();
-            }, this );
+            }, this);
             return this;
         },
-        run:function(){
-            this.callbacks.forEach(this.callback,this);
+        run: function () {
+            this.callbacks.forEach(this.callback, this);
         },
-        base64:function(data){
+        base64: function (data) {
             return Base64.encode(JSON.stringify(data));
         },
-        callback:function(fn){
-            fn.call(this,{
+        callback: function (fn) {
+            fn.call(this, {
                 id: this.hash,
                 data: this.data
             });
@@ -2475,7 +2565,7 @@
             for (prop in data) {
                 if (data.hasOwnProperty(prop)) {
                     value = data[prop];
-                    if (typeof(value) === 'object') {
+                    if (typeof (value) === 'object') {
                         list.push(this.values(value));
                     } else {
                         list.push(value);
@@ -2597,6 +2687,10 @@
 
     browserHash.add('webgl', function (next) {
         next(x64hash128(getWebglHash(), 31));
+    });
+
+    browserHash.add('audio_hash', function (next) {
+        audioFingerprint(next);
     });
 
     browserHash.add('webgl_vendor', function (next) {

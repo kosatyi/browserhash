@@ -1,7 +1,5 @@
 (function () {
-
     var baseFonts = ['monospace', 'sans-serif', 'serif'];
-
     var fontList = [
         'Andale Mono', 'Arial', 'Arial Black', 'Arial Hebrew', 'Arial MT', 'Arial Narrow', 'Arial Rounded MT Bold', 'Arial Unicode MS',
         'Bitstream Vera Sans Mono', 'Book Antiqua', 'Bookman Old Style',
@@ -16,7 +14,6 @@
         'Tahoma', 'Times', 'Times New Roman', 'Times New Roman PS', 'Trebuchet MS',
         'Verdana', 'Wingdings', 'Wingdings 2', 'Wingdings 3'
     ];
-
     var extendedFontList = [
         'Abadi MT Condensed Light', 'Academy Engraved LET', 'ADOBE CASLON PRO', 'Adobe Garamond', 'ADOBE GARAMOND PRO', 'Agency FB', 'Aharoni', 'Albertus Extra Bold', 'Albertus Medium', 'Algerian', 'Amazone BT', 'American Typewriter',
         'American Typewriter Condensed', 'AmerType Md BT', 'Andalus', 'Angsana New', 'AngsanaUPC', 'Antique Olive', 'Aparajita', 'Apple Chancery', 'Apple Color Emoji', 'Apple SD Gothic Neo', 'Arabic Typesetting', 'ARCHER',
@@ -51,44 +48,71 @@
         'ZapfEllipt BT', 'ZapfHumnst BT', 'ZapfHumnst Dm BT', 'Zapfino', 'Zurich BlkEx BT', 'Zurich Ex BT', 'ZWAdobeF'];
 
 
+
+    var forEach = function(object,callback){
+        var prop;
+        if(typeof(object) === 'object' && typeof(callback) === 'function' ){
+            for(prop in object){
+                if(object.hasOwnProperty(prop)){
+                    callback(object[prop],prop,object);
+                }
+            }
+        }
+    };
+
+    var createElement = function(name,styles,attributes){
+        var el = document.createElement(name);
+        forEach(styles,function(item,index){
+            el.style[index] = item;
+        });
+        forEach(attributes,function(item,index){
+            el.setAttribute(index,item);
+        });
+        return el;
+    };
+    var spanString = 'mmmmmmmmmmlli';
+    var spanSize = '72px';
+    var spanElement     = null;
+    var createSpan = function () {
+        if( spanElement ) return spanElement.cloneNode(true);
+        spanElement = createElement('span',{
+            position: 'absolute',
+            left:'-9999px',
+            fontSize: spanSize,
+            fontStyle:'normal',
+            fontWeight:'normal',
+            letterSpacing:'normal',
+            lineBreak:'auto',
+            lineHeight:'normal',
+            textTransform:'textTransform',
+            textAlign:'left',
+            textDecoration:'none',
+            textShadow:'none',
+            whiteSpace:'normal',
+            wordBreak:'normal',
+            wordSpacing:'normal'
+        });
+        spanElement.innerHTML = spanString;
+        return spanElement;
+    };
+
+    var createSpanWithFonts = function (fontToDetect, baseFont) {
+        var s = createSpan();
+        s.style.fontFamily = "'" + fontToDetect + "'," + baseFont;
+        return s;
+    };
+
     this.getAvailableFonts = function (list) {
         fontList = fontList.concat(extendedFontList);
         fontList = fontList.concat(list || []);
         fontList = fontList.filter(function (font, position) {
             return fontList.indexOf(font) === position
         });
-        var testString = 'mmmmmmmmmmlli';
-        var testSize = '72px';
         var h = document.getElementsByTagName('body')[0];
-        var baseFontsDiv = document.createElement('div');
-        var fontsDiv = document.createElement('div');
+        var baseFontsDiv = createElement('div');
+        var fontsDiv     = createElement('div');
         var defaultWidth = {};
         var defaultHeight = {};
-        var createSpan = function () {
-            var s = document.createElement('span');
-            s.style.position = 'absolute';
-            s.style.left = '-9999px';
-            s.style.fontSize = testSize;
-            s.style.fontStyle = 'normal';
-            s.style.fontWeight = 'normal';
-            s.style.letterSpacing = 'normal';
-            s.style.lineBreak = 'auto';
-            s.style.lineHeight = 'normal';
-            s.style.textTransform = 'none';
-            s.style.textAlign = 'left';
-            s.style.textDecoration = 'none';
-            s.style.textShadow = 'none';
-            s.style.whiteSpace = 'normal';
-            s.style.wordBreak = 'normal';
-            s.style.wordSpacing = 'normal';
-            s.innerHTML = testString;
-            return s
-        };
-        var createSpanWithFonts = function (fontToDetect, baseFont) {
-            var s = createSpan();
-            s.style.fontFamily = "'" + fontToDetect + "'," + baseFont;
-            return s;
-        };
         var initializeBaseFontsSpans = function () {
             var spans = [];
             for (var index = 0, length = baseFonts.length; index < length; index++) {
@@ -115,7 +139,8 @@
         var isFontAvailable = function (fontSpans) {
             var detected = false;
             for (var i = 0; i < baseFonts.length; i++) {
-                detected = (fontSpans[i].offsetWidth !== defaultWidth[baseFonts[i]] || fontSpans[i].offsetHeight !== defaultHeight[baseFonts[i]]);
+                detected = (fontSpans[i].offsetWidth !== defaultWidth[baseFonts[i]] ||
+                            fontSpans[i].offsetHeight !== defaultHeight[baseFonts[i]] );
                 if (detected) {
                     return detected
                 }
@@ -124,20 +149,21 @@
         };
         var baseFontsSpans = initializeBaseFontsSpans();
         h.appendChild(baseFontsDiv);
-        for (var index = 0, length = baseFonts.length; index < length; index++) {
-            defaultWidth[baseFonts[index]] = baseFontsSpans[index].offsetWidth;
-            defaultHeight[baseFonts[index]] = baseFontsSpans[index].offsetHeight;
-        }
+        forEach(baseFonts,function(item,index){
+            defaultWidth[item]  = baseFontsSpans[index].offsetWidth;
+            defaultHeight[item] = baseFontsSpans[index].offsetHeight;
+        });
         var fontsSpans = initializeFontsSpans();
         h.appendChild(fontsDiv);
         var available = [];
-        for (var i = 0, l = fontList.length; i < l; i++) {
-            if (isFontAvailable(fontsSpans[fontList[i]])) {
-                available.push(fontList[i])
+        forEach(fontList,function(item){
+            if (isFontAvailable(fontsSpans[item])) {
+                available.push(item);
             }
-        }
+        });
         h.removeChild(fontsDiv);
         h.removeChild(baseFontsDiv);
         return available;
     };
 })();
+

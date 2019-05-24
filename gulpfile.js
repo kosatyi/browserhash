@@ -30,6 +30,7 @@ gulp.task('build', ['clean'] ,function(){
         './src/fonts.js',
         './src/lied.js',
         './src/plugins.js',
+        './src/audio.js',
         './src/canvas.js',
         './src/index.js'
     ],'dist');

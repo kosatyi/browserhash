@@ -1,6 +1,7 @@
 {
   "name": "browserhash",
   "description": "",
+  "version": "0.0.0",
   "repository": {},
   "scripts": {
     "build": "npm install && npm update && ./node_modules/gulp/bin/gulp.js"

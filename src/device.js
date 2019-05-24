@@ -1,13 +1,9 @@
-(function(){
+(function () {
 
     var previousDevice = window.device;
     var device = {};
     var changeOrientationList = [];
-
-
-
     var userAgent = window.navigator.userAgent.toLowerCase();
-
     var television = [
         'googletv',
         'viera',
@@ -26,87 +22,87 @@
         'ce-html'
     ];
 
-    device.macos = function() {
+    device.macos = function () {
         return find('mac')
     };
 
-    device.ios = function() {
+    device.ios = function () {
         return device.iphone() || device.ipod() || device.ipad()
     };
 
-    device.iphone = function() {
+    device.iphone = function () {
         return !device.windows() && find('iphone')
     };
 
-    device.ipod = function() {
+    device.ipod = function () {
         return find('ipod')
     };
 
-    device.ipad = function() {
+    device.ipad = function () {
         return find('ipad')
     };
 
-    device.android = function() {
+    device.android = function () {
         return !device.windows() && find('android')
     };
 
-    device.androidPhone = function() {
+    device.androidPhone = function () {
         return device.android() && find('mobile')
     };
 
-    device.androidTablet = function() {
+    device.androidTablet = function () {
         return device.android() && !find('mobile')
     };
 
-    device.blackberry = function() {
+    device.blackberry = function () {
         return find('blackberry') || find('bb10') || find('rim')
     };
 
-    device.blackberryPhone = function() {
+    device.blackberryPhone = function () {
         return device.blackberry() && !find('tablet')
     };
 
-    device.blackberryTablet = function() {
+    device.blackberryTablet = function () {
         return device.blackberry() && find('tablet')
     };
 
-    device.windows = function() {
+    device.windows = function () {
         return find('windows')
     };
 
-    device.windowsPhone = function() {
+    device.windowsPhone = function () {
         return device.windows() && find('phone')
     };
 
-    device.windowsTablet = function() {
+    device.windowsTablet = function () {
         return device.windows() && (find('touch') && !device.windowsPhone())
     };
 
-    device.fxos = function() {
+    device.fxos = function () {
         return (find('(mobile') || find('(tablet')) && find(' rv:')
     };
 
-    device.fxosPhone = function() {
+    device.fxosPhone = function () {
         return device.fxos() && find('mobile')
     };
 
-    device.fxosTablet = function() {
+    device.fxosTablet = function () {
         return device.fxos() && find('tablet')
     };
 
-    device.meego = function() {
+    device.meego = function () {
         return find('meego')
     };
 
-    device.cordova = function() {
+    device.cordova = function () {
         return window.cordova && location.protocol === 'file:'
     };
 
-    device.nodeWebkit = function() {
+    device.nodeWebkit = function () {
         return typeof window.process === 'object'
     };
 
-    device.mobile = function() {
+    device.mobile = function () {
         return (
             device.androidPhone() ||
             device.iphone() ||
@@ -118,7 +114,7 @@
         )
     };
 
-    device.tablet = function() {
+    device.tablet = function () {
         return (
             device.ipad() ||
             device.androidTablet() ||
@@ -128,11 +124,11 @@
         )
     };
 
-    device.desktop = function() {
+    device.desktop = function () {
         return !device.tablet() && !device.mobile()
     };
 
-    device.television = function() {
+    device.television = function () {
         var i = 0;
         while (i < television.length) {
             if (find(television[i])) {
@@ -143,7 +139,7 @@
         return false
     };
 
-    device.portrait = function() {
+    device.portrait = function () {
         if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('portrait')
         } else {
@@ -151,7 +147,7 @@
         }
     };
 
-    device.landscape = function() {
+    device.landscape = function () {
         if (Object.prototype.hasOwnProperty.call(window, 'onorientationchange') && screen.orientation && screen.orientation.type) {
             return screen.orientation.type.includes('landscape')
         } else {
@@ -159,7 +155,7 @@
         }
     };
 
-    device.noConflict = function() {
+    device.noConflict = function () {
         window.device = previousDevice;
         return this
     };
@@ -183,7 +179,7 @@
         }
     }
 
-    device.onChangeOrientation = function(cb) {
+    device.onChangeOrientation = function (cb) {
         if (typeof cb === 'function') {
             changeOrientationList.push(cb)
         }
