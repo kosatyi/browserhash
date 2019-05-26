@@ -1,0 +1,30 @@
+plugins:
+  - jekyll-seo-tag
+
+port: 4002
+
+styles:
+
+remote_theme: kosatyi/sjt
+
+exclude:
+  - node_modules
+  - vendor
+  - src
+
+javascript:
+
+baseurl: /browserhash
+
+navigation: false
+
+projects: true
+
+title: Browserhash.js
+description: Advanced fingerprint javascript library
+
+author:
+  name: Stepan Kosatyi
+  url: http://www.kosatyi.com/
+
+toolbar:
