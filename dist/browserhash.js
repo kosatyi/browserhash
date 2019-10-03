@@ -2525,24 +2525,52 @@
     }
 
     function Component() {
+        this.cache = 'browserhash';
         this.stack = [];
         this.callbacks = [];
         this.hash = null;
         this.data = null;
+        this.restore();
     }
 
     Component.prototype = {
         then: function (fn) {
-            if (this.hash && this.data) return this.callback(fn);
+            if (this.hash && this.data){
+                return this.callback(fn);
+            }
             this.callbacks.push(fn);
             return this.fetch();
+        },
+        save: function (hash, data) {
+            try{
+                localStorage.setItem(this.cache, JSON.stringify({
+                    hash: hash,
+                    data: data
+                }));
+            } catch(e){
+
+            }
+        },
+        restore: function () {
+            var cache;
+            try{
+                cache = localStorage.getItem(this.cache);
+            } catch(e){
+                cache = null;
+            }
+            if( cache ) {
+                cache = JSON.parse(cache);
+                this.hash = cache.hash;
+                this.data = cache.data;
+            }
         },
         fetch: function () {
             if (this.init) return this;
             this.init = true;
             waterfall(this.stack, function (data) {
-                this.data = data;
                 this.hash = x64hash128(this.values(data), 31);
+                this.data = data;
+                this.save(this.hash, this.data);
                 this.run();
             }, this);
             return this;
