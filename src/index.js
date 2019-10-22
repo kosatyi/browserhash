@@ -1,3 +1,21 @@
+(function (isStorage) {
+    if (!isStorage) {
+        var data = {}, undef;
+        window.localStorage = {
+            setItem     : function(id, val) { return data[id] = String(val); },
+            getItem     : function(id) { return data.hasOwnProperty(id) ? data[id] : undef; },
+            removeItem  : function(id) { return delete data[id]; },
+            clear       : function() { return data = {}; }
+        };
+    }
+})((function () {
+    try {
+        return "localStorage" in window && window.localStorage != null;
+    } catch (e) {
+        return false;
+    }
+})());
+
 (function () {
 
     function waterfall(stack, callback, context) {
@@ -39,7 +57,7 @@
         },
         save: function (hash, data) {
             try{
-                localStorage.setItem(this.cache, JSON.stringify({
+                window['localStorage'].setItem(this.cache, JSON.stringify({
                     hash: hash,
                     data: data
                 }));
@@ -50,7 +68,7 @@
         restore: function () {
             var cache;
             try{
-                cache = localStorage.getItem(this.cache);
+                cache = window['localStorage'].getItem(this.cache);
             } catch(e){
                 cache = null;
             }
