@@ -18,14 +18,12 @@
     {
         var audioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
         context = new audioContext(1, 44100, 44100);
-        console.log(context);
     }
     function setOscillator()
     {
         oscillator = context.createOscillator();
         oscillator.type = "triangle";
         oscillator.frequency.setValueAtTime(10000, currentTime);
-        console.log(oscillator);
     }
     function setCompressor()
     {
@@ -36,7 +34,6 @@
         setCompressorValueIfDefined('reduction', -20);
         setCompressorValueIfDefined('attack', 0);
         setCompressorValueIfDefined('release', .25);
-        console.log(compressor);
     }
     function setCompressorValueIfDefined(item, value)
     {
@@ -46,7 +43,6 @@
     }
     function onComplete(event)
     {
-        console.log('onComplete',event);
         generateFingerprints(event);
         compressor.disconnect();
     }
@@ -70,10 +66,12 @@
             compressor.connect(context.destination);
             oscillator.start(0);
             buffer = context.startRendering();
-            console.log(buffer);
-            context.oncomplete = onComplete;
+            if(buffer){
+                context.oncomplete = onComplete;
+            } else {
+                callback(false);
+            }
         } catch (e) {
-            console.log(e);
             callback(false);
         }
     };

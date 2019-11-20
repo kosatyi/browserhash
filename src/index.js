@@ -1,5 +1,3 @@
-
-
 (function () {
     function waterfall(stack, callback, context) {
         var list = stack, result = {};
@@ -11,12 +9,10 @@
             next = arguments.callee;
             try {
                 call(function (value) {
-                    console.log(key,value);
                     result[key] = value;
                     next(++index);
                 });
             } catch (e) {
-                console.log('error',key,e);
                 result[key] = e;
                 next(++index);
             }
@@ -45,7 +41,7 @@
                     data: data
                 }));
             } catch(e){
-                console.log('error',e);
+
             }
         },
         restore: function () {
@@ -54,7 +50,6 @@
                 cache = window['localStorage'].getItem(this.cache);
                 cache = JSON.parse(cache);
             } catch(e){
-                console.log('error',e);
                 cache = null;
             }
             if( cache ) {
@@ -216,7 +211,6 @@
     });
 
     browserHash.add('audio_hash', function (next) {
-        console.log('audio_hash');
         audioFingerprint(next);
     });
 
