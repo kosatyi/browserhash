@@ -1,5 +1,6 @@
 (function () {
     var context = null;
+    var buffer  = null;
     var currentTime = null;
     var oscillator = null;
     var compressor = null;
@@ -68,10 +69,8 @@
             oscillator.connect(compressor);
             compressor.connect(context.destination);
             oscillator.start(0);
-            context.startRendering().catch(function(){
-                console.log(arguments);
-                callback(false);
-            });
+            buffer = context.startRendering();
+            console.log(buffer);
             context.oncomplete = onComplete;
         } catch (e) {
             console.log(e);
