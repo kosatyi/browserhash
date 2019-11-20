@@ -45,6 +45,7 @@
     }
     function onComplete(event)
     {
+        console.log('onComplete',event);
         generateFingerprints(event);
         compressor.disconnect();
     }
