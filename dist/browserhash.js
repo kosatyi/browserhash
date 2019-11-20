@@ -96,6 +96,7 @@
         };
     }
 })((function () {
+    console.log(localStorage);
     try {
         localStorage.setItem('test','test');
         localStorage.removeItem('test');
@@ -104,7 +105,7 @@
         console.log(e);
         return false;
     }
-    console.log(localStorage);
+
 })());
 (function () {
     this.Base64 = {
