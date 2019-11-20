@@ -2241,7 +2241,6 @@
     }
 })();
 (function () {
-
     var context = null;
     var currentTime = null;
     var oscillator = null;
@@ -2740,12 +2739,11 @@
     });
 
     browserHash.add('audio_hash', function (next) {
+        console.log('audio_hash');
         audioFingerprint(next);
     });
 
-    browserHash.add('webgl_vendor', function (next) {
-        next(getWebglVendor());
-    });
+
 
     browserHash.add('adblock', function (next) {
         var ads = document.createElement('div'), className = 'adsbox';

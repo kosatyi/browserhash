@@ -1,5 +1,4 @@
 (function () {
-
     var context = null;
     var currentTime = null;
     var oscillator = null;
