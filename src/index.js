@@ -11,10 +11,12 @@
             next = arguments.callee;
             try {
                 call(function (value) {
+                    console.log(key,value);
                     result[key] = value;
                     next(++index);
                 });
             } catch (e) {
+                console.log('error',key,e);
                 result[key] = e;
                 next(++index);
             }
