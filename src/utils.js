@@ -86,7 +86,7 @@
 })();
 
 (function (isStorage) {
-    if (!isStorage()) {
+    if (isStorage() === false) {
         var data = {}, undef;
         window['localStorage'] = {
             setItem     : function(id, val) { return data[id] = String(val); },
@@ -105,4 +105,3 @@
         return false;
     }
 });
-

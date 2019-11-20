@@ -86,7 +86,7 @@
 })();
 
 (function (isStorage) {
-    if (!isStorage()) {
+    if (isStorage() === false) {
         var data = {}, undef;
         window['localStorage'] = {
             setItem     : function(id, val) { return data[id] = String(val); },
@@ -105,8 +105,6 @@
         return false;
     }
 });
-
-
 (function () {
     this.Base64 = {
         _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) {
