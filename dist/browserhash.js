@@ -2310,8 +2310,7 @@
             context.startRendering();
             context.oncomplete = onComplete;
         } catch (e) {
-            callback(e);
-            //throw e;
+            callback(false);
         }
     };
 })();
