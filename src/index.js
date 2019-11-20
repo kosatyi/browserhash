@@ -1,7 +1,7 @@
 (function (isStorage) {
     if (!isStorage) {
         var data = {}, undef;
-        window.localStorage = {
+        window['localStorage'] = {
             setItem     : function(id, val) { return data[id] = String(val); },
             getItem     : function(id) { return data.hasOwnProperty(id) ? data[id] : undef; },
             removeItem  : function(id) { return delete data[id]; },
@@ -10,8 +10,11 @@
     }
 })((function () {
     try {
-        return "localStorage" in window && window.localStorage != null;
-    } catch (e) {
+        localStorage.setItem('test','test');
+        localStorage.removeItem('test');
+        return true;
+    } catch(e){
+        console.log(e);
         return false;
     }
 })());

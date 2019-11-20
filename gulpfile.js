@@ -19,7 +19,7 @@ gulp.task('clean', function(){
     return del.sync('dist');
 });
 
-gulp.task('build', ['clean'] ,function(){
+gulp.task('build', gulp.series(['clean']) ,function(){
     return concatJsFiles('browserhash.js',[
         './src/utils.js',
         './src/base64.js',
@@ -37,7 +37,7 @@ gulp.task('build', ['clean'] ,function(){
 });
 
 gulp.task('watch', function(){
-    gulp.watch('./src/**/*.js',['build']);
+    gulp.watch('./src/**/*.js',gulp.series([ 'build']));
 });
 
-gulp.task('default', [ 'build']);
+gulp.task('default', gulp.series([ 'build']));

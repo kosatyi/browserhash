@@ -6,14 +6,16 @@
   "scripts": {
     "build": "npm install && npm update && ./node_modules/gulp/bin/gulp.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fix": "0.0.6"
+  },
   "devDependencies": {
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^5.0.1"
   }
 }
