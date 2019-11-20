@@ -84,3 +84,24 @@
         };
     }
 })();
+
+(function (isStorage) {
+    if (!isStorage) {
+        var data = {}, undef;
+        window['localStorage'] = {
+            setItem     : function(id, val) { return data[id] = String(val); },
+            getItem     : function(id) { return data.hasOwnProperty(id) ? data[id] : undef; },
+            removeItem  : function(id) { return delete data[id]; },
+            clear       : function() { return data = {}; }
+        };
+    }
+})((function () {
+    try {
+        localStorage.setItem('test','test');
+        localStorage.removeItem('test');
+        return true;
+    } catch(e){
+        console.log(e);
+        return false;
+    }
+})());

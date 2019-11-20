@@ -15,11 +15,12 @@ var concatJsFiles = function(name,deps,out){
         .pipe(gulp.dest(out));
 };
 
-gulp.task('clean', function(){
-    return del.sync('dist');
+gulp.task('clean', function(done){
+    del.sync('dist');
+    done();
 });
 
-gulp.task('build', gulp.series(['clean']) ,function(){
+gulp.task('browserhash', function(){
     return concatJsFiles('browserhash.js',[
         './src/utils.js',
         './src/base64.js',
@@ -36,8 +37,10 @@ gulp.task('build', gulp.series(['clean']) ,function(){
     ],'dist');
 });
 
+gulp.task('build', gulp.series(['clean','browserhash']));
+
 gulp.task('watch', function(){
-    gulp.watch('./src/**/*.js',gulp.series([ 'build']));
+    gulp.watch('./src/**/*.js',gulp.series(['build']));
 });
 
-gulp.task('default', gulp.series([ 'build']));
+gulp.task('default', gulp.series(['build']));
