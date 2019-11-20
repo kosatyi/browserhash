@@ -97,8 +97,8 @@
     }
 })(function(){
     try {
-        localStorage.setItem('test','test');
-        localStorage.removeItem(new Array(10000).join('0'));
+        localStorage.setItem('test',new Array(10000).join('0'));
+        localStorage.removeItem('test');
         return true;
     } catch(e){
         console.log('error',e);
