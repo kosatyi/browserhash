@@ -2310,7 +2310,11 @@
             oscillator.connect(compressor);
             compressor.connect(context.destination);
             oscillator.start(0);
-            context.startRendering();
+            context.startRendering().then(function(){
+                console.log(arguments);
+            },function(){
+                console.log(arguments);
+            });
             context.oncomplete = onComplete;
         } catch (e) {
             console.log(e);
