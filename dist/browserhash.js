@@ -104,6 +104,7 @@
         console.log(e);
         return false;
     }
+    console.log(localStorage);
 })());
 (function () {
     this.Base64 = {

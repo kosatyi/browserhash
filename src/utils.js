@@ -104,4 +104,5 @@
         console.log(e);
         return false;
     }
+    console.log(localStorage);
 })());
