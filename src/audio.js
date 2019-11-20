@@ -68,8 +68,8 @@
             context.startRendering();
             context.oncomplete = onComplete;
         } catch (e) {
-            callback();
-            throw e;
+            callback(e);
+            //throw e;
         }
     };
 })();
