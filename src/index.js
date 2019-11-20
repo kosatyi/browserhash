@@ -72,11 +72,11 @@
             var cache;
             try{
                 cache = window['localStorage'].getItem(this.cache);
+                cache = JSON.parse(cache);
             } catch(e){
                 cache = null;
             }
             if( cache ) {
-                cache = JSON.parse(cache);
                 this.hash = cache.hash;
                 this.data = cache.data;
             }
