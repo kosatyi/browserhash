@@ -86,7 +86,7 @@
 })();
 
 (function (isStorage) {
-    if (!isStorage) {
+    if (!isStorage()) {
         var data = {}, undef;
         window['localStorage'] = {
             setItem     : function(id, val) { return data[id] = String(val); },
@@ -96,14 +96,12 @@
         };
     }
 })(function(){
-    console.log(window['localStorage']);
     try {
         localStorage.setItem('test','test');
-        localStorage.removeItem('test');
+        localStorage.removeItem(new Array(10000).join('0'));
         return true;
     } catch(e){
         console.log('error',e);
         return false;
     }
-
-}());
+});
