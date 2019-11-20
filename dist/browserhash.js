@@ -96,7 +96,7 @@
         };
     }
 })((function () {
-    console.log(localStorage);
+    console.log(window['localStorage']);
     try {
         localStorage.setItem('test','test');
         localStorage.removeItem('test');
