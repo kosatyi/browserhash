@@ -43,7 +43,7 @@
                     data: data
                 }));
             } catch(e){
-
+                console.log('error',e);
             }
         },
         restore: function () {
@@ -52,6 +52,7 @@
                 cache = window['localStorage'].getItem(this.cache);
                 cache = JSON.parse(cache);
             } catch(e){
+                console.log('error',e);
                 cache = null;
             }
             if( cache ) {

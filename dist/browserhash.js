@@ -95,18 +95,18 @@
             clear       : function() { return data = {}; }
         };
     }
-})((function () {
+})(function(){
     console.log(window['localStorage']);
     try {
         localStorage.setItem('test','test');
         localStorage.removeItem('test');
         return true;
     } catch(e){
-        console.log(e);
+        console.log('error',e);
         return false;
     }
 
-})());
+}());
 (function () {
     this.Base64 = {
         _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) {
@@ -2570,7 +2570,7 @@
                     data: data
                 }));
             } catch(e){
-
+                console.log('error',e);
             }
         },
         restore: function () {
@@ -2579,6 +2579,7 @@
                 cache = window['localStorage'].getItem(this.cache);
                 cache = JSON.parse(cache);
             } catch(e){
+                console.log('error',e);
                 cache = null;
             }
             if( cache ) {

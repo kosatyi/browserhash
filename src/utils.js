@@ -95,15 +95,15 @@
             clear       : function() { return data = {}; }
         };
     }
-})((function () {
+})(function(){
     console.log(window['localStorage']);
     try {
         localStorage.setItem('test','test');
         localStorage.removeItem('test');
         return true;
     } catch(e){
-        console.log(e);
+        console.log('error',e);
         return false;
     }
 
-})());
+}());
