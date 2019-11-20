@@ -2250,6 +2250,7 @@
     function setup()
     {
         setContext();
+
         currentTime = context.currentTime;
         setOscillator();
         setCompressor();
@@ -2258,12 +2259,14 @@
     {
         var audioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
         context = new audioContext(1, 44100, 44100);
+        console.log(context);
     }
     function setOscillator()
     {
         oscillator = context.createOscillator();
         oscillator.type = "triangle";
         oscillator.frequency.setValueAtTime(10000, currentTime);
+        console.log(oscillator);
     }
     function setCompressor()
     {
@@ -2274,6 +2277,7 @@
         setCompressorValueIfDefined('reduction', -20);
         setCompressorValueIfDefined('attack', 0);
         setCompressorValueIfDefined('release', .25);
+        console.log(compressor);
     }
     function setCompressorValueIfDefined(item, value)
     {
