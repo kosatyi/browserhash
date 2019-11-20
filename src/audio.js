@@ -27,7 +27,6 @@
     function setCompressor()
     {
         compressor = context.createDynamicsCompressor();
-
         setCompressorValueIfDefined('threshold', -50);
         setCompressorValueIfDefined('knee', 40);
         setCompressorValueIfDefined('ratio', 12);
@@ -68,6 +67,7 @@
             context.startRendering();
             context.oncomplete = onComplete;
         } catch (e) {
+            console.log(e);
             callback(false);
         }
     };
