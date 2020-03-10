@@ -17,9 +17,7 @@ exclude:
 javascript:
 
 baseurl: /browserhash
-
 navigation: false
-
 projects: true
 
 brand: browserhash
