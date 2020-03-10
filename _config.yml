@@ -1,5 +1,7 @@
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
 
 port: 4002
 
@@ -27,8 +29,3 @@ description: Advanced fingerprint javascript library
 author:
   name: Stepan Kosatyi
   url: http://www.kosatyi.com/
-
-toolbar:
-  -
-    name: asdasd
-    link: aksdlaskd
