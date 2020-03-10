@@ -1,4 +1,4 @@
-gems:
+plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
@@ -18,11 +18,9 @@ projects: true
 brand: browserhash
 title: Browserhash.js
 description: Advanced fingerprint javascript library
-logo: fondy.svg
 
 styles:
 javascript:
-
 
 author:
   name: Stepan Kosatyi
