@@ -1,19 +1,9 @@
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-feed
-
-port: 4002
 remote_theme: kosatyi/sjt
 
-exclude:
-  - node_modules
-  - vendor
-  - src
-
-baseurl: /browserhash
 navigation: false
 projects: true
+
+baseurl: /browserhash
 
 brand: browserhash
 title: Browserhash.js
