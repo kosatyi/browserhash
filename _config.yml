@@ -19,9 +19,6 @@ brand: browserhash
 title: Browserhash.js
 description: Advanced fingerprint javascript library
 
-styles:
-javascript:
-
 author:
   name: Stepan Kosatyi
   url: http://www.kosatyi.com/
