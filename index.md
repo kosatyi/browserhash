@@ -6,8 +6,6 @@
 
 <div class="result"></div>
 
-{% include youtube.html id="asdas23" %}
-
 <script>
     var wrapper = document.querySelector('.result');
     var append = function (object) {
