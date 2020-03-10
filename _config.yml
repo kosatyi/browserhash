@@ -1,20 +1,15 @@
-plugins:
+gems:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
 
 port: 4002
-
-styles:
-
 remote_theme: kosatyi/sjt
 
 exclude:
   - node_modules
   - vendor
   - src
-
-javascript:
 
 baseurl: /browserhash
 navigation: false
@@ -23,6 +18,11 @@ projects: true
 brand: browserhash
 title: Browserhash.js
 description: Advanced fingerprint javascript library
+logo: fondy.svg
+
+styles:
+javascript:
+
 
 author:
   name: Stepan Kosatyi
