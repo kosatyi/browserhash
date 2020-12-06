@@ -23,6 +23,7 @@ projects: true
 brand: browserhash
 title: Browserhash.js
 description: Advanced fingerprint javascript library
+analytics: UA-37629144-1
 
 author:
   name: Stepan Kosatyi
