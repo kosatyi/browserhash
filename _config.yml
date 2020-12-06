@@ -1,24 +1,9 @@
-plugins:
-  - jekyll-seo-tag
-
-port: 4002
-
-styles:
-
 remote_theme: kosatyi/sjt
 
-exclude:
-  - node_modules
-  - vendor
-  - src
-
-javascript:
+navigation: false
+projects: true
 
 baseurl: /browserhash
-
-navigation: false
-
-projects: true
 
 brand: browserhash
 title: Browserhash.js
@@ -27,6 +12,4 @@ analytics: UA-37629144-1
 
 author:
   name: Stepan Kosatyi
-  url: http://www.kosatyi.com/
-
-toolbar:
+  url: https://kosatyi.com/
