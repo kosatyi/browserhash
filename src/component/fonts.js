@@ -98,12 +98,6 @@ var createSpan = function () {
     return spanElement;
 };
 
-var createSpanWithFonts = function (fontToDetect, baseFont) {
-    var s = createSpan();
-    s.style.fontFamily = "'" + fontToDetect + "'," + baseFont;
-    return s;
-};
-
 exports.getAvailableFonts = function (list) {
     fontList = fontList.concat(extendedFontList);
     fontList = fontList.concat(list || []);
@@ -113,15 +107,16 @@ exports.getAvailableFonts = function (list) {
     var h = document.getElementsByTagName('body')[0];
     var baseFontsDiv = createElement('div');
     var fontsDiv = createElement('div');
-    var defaultWidth = {};
-    var defaultHeight = {};
+    // var defaultWidth = {};
+    // var defaultHeight = {};
+    var defaultSize   = {};
     var initializeBaseFontsSpans = function () {
         var spans = [];
         for (var index = 0, length = baseFonts.length; index < length; index++) {
             var s = createSpan();
             s.style.fontFamily = baseFonts[index];
             baseFontsDiv.appendChild(s);
-            spans.push(s)
+            spans.push(s);
         }
         return spans
     };
@@ -130,7 +125,8 @@ exports.getAvailableFonts = function (list) {
         for (var i = 0, l = fontList.length; i < l; i++) {
             var fontSpans = [];
             for (var j = 0, numDefaultFonts = baseFonts.length; j < numDefaultFonts; j++) {
-                var s = createSpanWithFonts(fontList[i], baseFonts[j]);
+                var s = createSpan();
+                s.style.fontFamily = "'" + fontList[i] + "'," + baseFonts[j];
                 fontsDiv.appendChild(s);
                 fontSpans.push(s);
             }
@@ -138,26 +134,27 @@ exports.getAvailableFonts = function (list) {
         }
         return spans
     };
+    var getSizeString   = function(element){
+        return element.offsetWidth + 'x' + element.offsetHeight;
+    };
     var isFontAvailable = function (fontSpans) {
         var detected = false;
         for (var i = 0; i < baseFonts.length; i++) {
-            detected = (fontSpans[i].offsetWidth !== defaultWidth[baseFonts[i]] ||
-                fontSpans[i].offsetHeight !== defaultHeight[baseFonts[i]]);
-            if (detected) {
-                return detected
+            detected = getSizeString(fontSpans[i]) !== defaultSize[baseFonts[i]];
+            if( detected ) {
+                return detected;
             }
         }
         return detected
     };
     var baseFontsSpans = initializeBaseFontsSpans();
+    var fontsSpans = initializeFontsSpans();
+    var available = [];
+    h.appendChild(fontsDiv);
     h.appendChild(baseFontsDiv);
     forEach(baseFonts, function (item, index) {
-        defaultWidth[item] = baseFontsSpans[index].offsetWidth;
-        defaultHeight[item] = baseFontsSpans[index].offsetHeight;
+        defaultSize[item] = getSizeString(baseFontsSpans[index])
     });
-    var fontsSpans = initializeFontsSpans();
-    h.appendChild(fontsDiv);
-    var available = [];
     forEach(fontList, function (item) {
         if (isFontAvailable(fontsSpans[item])) {
             available.push(item);

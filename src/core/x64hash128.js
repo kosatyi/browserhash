@@ -80,7 +80,7 @@ function x64Fmix(h) {
 }
 
 
-function x64hash128(key, seed) {
+module.exports = function(key, seed) {
     key = key || "";
     seed = seed || 0;
     var remainder = key.length % 16;
@@ -164,5 +164,3 @@ function x64hash128(key, seed) {
         ("00000000" + (h2[0] >>> 0).toString(16)).slice(-8) +
         ("00000000" + (h2[1] >>> 0).toString(16)).slice(-8);
 }
-
-module.exports = x64hash128;

@@ -14,7 +14,6 @@ function Component() {
     this.restore();
 }
 
-
 Component.prototype = {
     then: function (fn) {
         if (this.hash && this.data) {

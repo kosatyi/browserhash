@@ -1,68 +1,63 @@
 var platform = require('./component/platform');
-
-var device = require('./component/device');
-
-var fonts  = require('./component/fonts');
-
+var fonts = require('./component/fonts');
 var canvas = require('./component/canvas');
-
-var lied   = require('./component/lied');
-
-var audio  = require('./component/audio');
-
+var lied = require('./component/lied');
+var audio = require('./component/audio');
 var plugins = require('./component/plugins');
-
+var component = require('./core/component');
 var x64hash128 = require('./core/x64hash128');
+var device = require('./component/device');
+var hash = new component();
 
-var Component = require('./core/component');
-
-var BrowserHash = new Component();
-
-BrowserHash.add('user_agent', function (next) {
+hash.add('user_agent', function (next) {
     next(navigator.userAgent);
 });
 
-BrowserHash.add('hardware_concurrency', function (next) {
+hash.add('hardware_concurrency', function (next) {
     next(navigator.hardwareConcurrency || 'unknown');
 });
 
-BrowserHash.add('language', function (next) {
+hash.add('language', function (next) {
     next(navigator.language || navigator.userLanguage || navigator.browserLanguage || navigator.systemLanguage || '');
 });
 
-BrowserHash.add('languages', function (next) {
+hash.add('languages', function (next) {
     next(navigator.languages || []);
 });
 
-BrowserHash.add('color_depth', function (next) {
+hash.add('color_depth', function (next) {
     next(window.screen.colorDepth || -1);
 });
 
-BrowserHash.add('device_memory', function (next) {
+hash.add('device_memory', function (next) {
     next(navigator.deviceMemory || -1);
 });
 
-BrowserHash.add('pixel_ratio', function (next) {
+hash.add('pixel_ratio', function (next) {
     next(window.devicePixelRatio || '');
 });
 
-BrowserHash.add('resolution', function (next) {
+hash.add('resolution', function (next) {
     next((window.screen.height > window.screen.width) ? [window.screen.height, window.screen.width] : [window.screen.width, window.screen.height]);
 });
 
-BrowserHash.add('available_resolution', function (next) {
+hash.add('available_resolution', function (next) {
     next((window.screen.availHeight > window.screen.availWidth) ? [window.screen.availHeight, window.screen.availWidth] : [window.screen.availWidth, window.screen.availHeight]);
 });
 
-BrowserHash.add('timezone_offset', function (next) {
+hash.add('timezone_offset', function (next) {
     next(new Date().getTimezoneOffset());
 });
 
-BrowserHash.add('cookie_enabled', function (next) {
+hash.add('cookie_enabled', function (next) {
     next(!!navigator.cookieEnabled);
 });
 
-BrowserHash.add('session_storage', function (next) {
+
+
+
+
+hash.add('session_storage', function (next) {
     var result;
     try {
         result = !!window.sessionStorage
@@ -72,7 +67,7 @@ BrowserHash.add('session_storage', function (next) {
     next(result);
 });
 
-BrowserHash.add('local_storage', function (next) {
+hash.add('local_storage', function (next) {
     var result;
     try {
         result = !!window.localStorage
@@ -82,7 +77,7 @@ BrowserHash.add('local_storage', function (next) {
     next(result);
 });
 
-BrowserHash.add('indexed_db', function (next) {
+hash.add('indexed_db', function (next) {
     var result;
     try {
         result = !!window.indexedDB
@@ -92,11 +87,13 @@ BrowserHash.add('indexed_db', function (next) {
     next(result);
 });
 
-BrowserHash.add('add_behavior', function (next) {
+hash.add('add_behavior', function (next) {
     next(!!(document.body && document.body.addBehavior));
 });
 
-BrowserHash.add('open_database', function (next) {
+
+
+hash.add('open_database', function (next) {
     var result;
     try {
         result = !!window.openDatabase
@@ -106,36 +103,37 @@ BrowserHash.add('open_database', function (next) {
     next(result);
 });
 
-BrowserHash.add('cpu_class', function (next) {
+hash.add('cpu_class', function (next) {
     next(navigator.cpuClass || 'unknown');
 });
 
-BrowserHash.add('navigator_platform', function (next) {
+hash.add('navigator_platform', function (next) {
     next(navigator.platform || 'unknown');
 });
 
-BrowserHash.add('plugins', function (next) {
+
+
+hash.add('plugins', function (next) {
     next(plugins.getBrowserPlugins());
 });
 
-BrowserHash.add('canvas', function (next) {
+hash.add('canvas', function (next) {
     next(x64hash128(canvas.getCanvasHash(), 31));
 });
 
-BrowserHash.add('webgl', function (next) {
+hash.add('webgl', function (next) {
     next(x64hash128(canvas.getWebglHash(), 31));
 });
 
-BrowserHash.add('audio_hash', function (next) {
+hash.add('audio_hash', function (next) {
     audio.audioFingerprint(next);
 });
 
-
-BrowserHash.add('adblock', function (next) {
+hash.add('adblock', function (next) {
+    var result = false;
     var ads = document.createElement('div'), className = 'adsbox';
     ads.innerHTML = '&nbsp;';
     ads.className = className;
-    var result = false;
     try {
         document.body.appendChild(ads);
         result = document.getElementsByClassName(className)[0].offsetHeight === 0;
@@ -146,23 +144,24 @@ BrowserHash.add('adblock', function (next) {
     next(result);
 });
 
-BrowserHash.add('has_lied_languages', function (next) {
+
+hash.add('has_lied_languages', function (next) {
     next(lied.getHasLiedLanguages());
 });
 
-BrowserHash.add('has_lied_resolution', function (next) {
+hash.add('has_lied_resolution', function (next) {
     next(lied.getHasLiedResolution());
 });
 
-BrowserHash.add('has_lied_os', function (next) {
+hash.add('has_lied_os', function (next) {
     next(lied.getHasLiedOs());
 });
 
-BrowserHash.add('has_lied_browser', function (next) {
+hash.add('has_lied_browser', function (next) {
     next(lied.getHasLiedBrowser());
 });
 
-BrowserHash.add('touch_support', function (next) {
+hash.add('touch_support', function (next) {
     var maxTouchPoints = 0;
     var touchEvent = false;
     if (typeof navigator.maxTouchPoints !== 'undefined') {
@@ -173,13 +172,13 @@ BrowserHash.add('touch_support', function (next) {
     try {
         document.createEvent('TouchEvent');
         touchEvent = true;
-    } catch (_) { /* squelch */
+    } catch (e) {
     }
     var touchStart = 'ontouchstart' in window;
     next([maxTouchPoints, touchEvent, touchStart]);
 });
 
-BrowserHash.add('do_not_track', function (next) {
+hash.add('do_not_track', function (next) {
     var result;
     if (navigator.doNotTrack) {
         result = navigator.doNotTrack;
@@ -193,30 +192,30 @@ BrowserHash.add('do_not_track', function (next) {
     next(result);
 });
 
-BrowserHash.add('fonts', function (next) {
+hash.add('fonts', function (next) {
     next(fonts.getAvailableFonts());
 });
 
-BrowserHash.add('platform_name', function (next) {
+hash.add('platform_name', function (next) {
     next(String(platform.name || 'unknown').toLowerCase());
 });
 
-BrowserHash.add('platform_version', function (next) {
+hash.add('platform_version', function (next) {
     next(String(platform.version || 'unknown').toLowerCase());
 });
 
-BrowserHash.add('platform_os', function (next) {
+hash.add('platform_os', function (next) {
     next(String(platform.os.family || 'unknown').toLowerCase());
 });
 
-BrowserHash.add('platform_product', function (next) {
+hash.add('platform_product', function (next) {
     next(String(platform.product || 'unknown').toLowerCase());
 });
 
-BrowserHash.add('platform_type', function (next) {
+hash.add('platform_type', function (next) {
     next(device.type || 'unknown');
 });
 
-window.BrowserHash = BrowserHash;
+window.BrowserHash = hash;
 
-module.exports = BrowserHash;
+module.exports = hash;

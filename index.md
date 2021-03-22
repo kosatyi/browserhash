@@ -5,7 +5,6 @@
 <script src="dist/browserhash.js?{{site.github.build_revision}}"></script>
 
 <div class="result"></div>
-
 <script>
     var wrapper = document.querySelector('.result');
     var append = function (object) {
@@ -19,9 +18,7 @@
     };
     var start = new Date().getTime();
     BrowserHash.then(function(data){
-        append({
-            time:String((new Date().getTime()-start)).concat(' ms')
-        })
+        append(BrowserHash.timing);
         append(data);
     });
 </script>
