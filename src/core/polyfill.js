@@ -1,4 +1,4 @@
-(function(){
+
     if (!('bind' in Function.prototype)) {
         Function.prototype.bind = function(owner) {
             var that = this;
@@ -83,7 +83,7 @@
             return false;
         };
     }
-})();
+
 
 (function (isStorage) {
     if (isStorage() === false) {
