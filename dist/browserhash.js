@@ -2140,7 +2140,7 @@ function Component() {
     this.callbacks = [];
     this.hash = null;
     this.data = null;
-    //this.restore();
+    this.restore();
 }
 
 
