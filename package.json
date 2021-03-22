@@ -3,6 +3,7 @@
   "description": "",
   "version": "0.0.0",
   "repository": {},
+  "main": "src/build.js",
   "scripts": {
     "build": "npm install && npm update && ./node_modules/gulp/bin/gulp.js"
   },
