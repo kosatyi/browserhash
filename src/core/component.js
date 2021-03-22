@@ -1,6 +1,6 @@
 var waterfall  = require('./waterfall');
 var x64hash128 = require('./x64hash128');
-var Base64     = require('./Base64');
+var Base64     = require('./base64');
 /**
  *
  * @constructor
