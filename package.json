@@ -1,7 +1,7 @@
 {
   "name": "browserhash.js",
   "description": "Browser fingerprint",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {},
   "main": "src/build.js",
   "scripts": {
@@ -10,9 +10,6 @@
     "preversion": "npm test",
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags"
-  },
-  "dependencies": {
-
   },
   "devDependencies": {
     "browserify": "^16.5.2",
