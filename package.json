@@ -1,6 +1,6 @@
 {
-  "name": "browserhash",
-  "description": "",
+  "name": "browserhash.js",
+  "description": "Browser fingerprint",
   "version": "0.0.0",
   "repository": {},
   "main": "src/build.js",
