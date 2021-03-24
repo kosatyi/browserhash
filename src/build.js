@@ -17,6 +17,7 @@ hash.add('hardware_concurrency', function (next) {
     next(navigator.hardwareConcurrency || 'unknown');
 });
 
+
 hash.add('language', function (next) {
     next(navigator.language || navigator.userLanguage || navigator.browserLanguage || navigator.systemLanguage || '');
 });
@@ -53,10 +54,6 @@ hash.add('cookie_enabled', function (next) {
     next(!!navigator.cookieEnabled);
 });
 
-
-
-
-
 hash.add('session_storage', function (next) {
     var result;
     try {
@@ -91,8 +88,6 @@ hash.add('add_behavior', function (next) {
     next(!!(document.body && document.body.addBehavior));
 });
 
-
-
 hash.add('open_database', function (next) {
     var result;
     try {
@@ -110,8 +105,6 @@ hash.add('cpu_class', function (next) {
 hash.add('navigator_platform', function (next) {
     next(navigator.platform || 'unknown');
 });
-
-
 
 hash.add('plugins', function (next) {
     next(plugins.getBrowserPlugins());
@@ -143,7 +136,6 @@ hash.add('adblock', function (next) {
     }
     next(result);
 });
-
 
 hash.add('has_lied_languages', function (next) {
     next(lied.getHasLiedLanguages());
@@ -215,7 +207,5 @@ hash.add('platform_product', function (next) {
 hash.add('platform_type', function (next) {
     next(device.type || 'unknown');
 });
-
-window.BrowserHash = hash;
 
 module.exports = hash;

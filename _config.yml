@@ -5,11 +5,15 @@ projects: true
 
 baseurl: /browserhash
 
+exclude:
+  - .idea
+  - node_modules
+
 brand: browserhash
 title: Browserhash.js
 description: Advanced fingerprint javascript library
 analytics: UA-37629144-1
-adsense: ca-pub-3650650669153101
+#adsense: ca-pub-3650650669153101
 
 author:
   name: Stepan Kosatyi

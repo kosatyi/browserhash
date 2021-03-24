@@ -13,7 +13,7 @@ gulp.task('clean', function(done){
 
 gulp.task('build', function(){
     return gulp.src(['src/build.js'])
-        .pipe(browserify())
+        .pipe(browserify({standalone:'BrowserHash'}))
         .pipe(rename('browserhash.js'))
         .pipe(gulp.dest('dist'))
         .pipe(sourcemaps.init())

@@ -70,17 +70,16 @@ var createElement = function (name, styles, attributes) {
 };
 
 var spanString = 'mmmmmmmmmmlli';
-
-var spanSize = '72px';
-
 var spanElement = null;
 
 var createSpan = function () {
-    if (spanElement) return spanElement.cloneNode(true);
+    if (spanElement) {
+        return spanElement.cloneNode(true);
+    }
     spanElement = createElement('span', {
         position: 'absolute',
         left: '-9999px',
-        fontSize: spanSize,
+        fontSize: '72px',
         fontStyle: 'normal',
         fontWeight: 'normal',
         letterSpacing: 'normal',
@@ -94,9 +93,30 @@ var createSpan = function () {
         wordBreak: 'normal',
         wordSpacing: 'normal'
     });
-    spanElement.innerHTML = spanString;
+    spanElement.innerText = spanString;
     return spanElement;
 };
+
+var createWrapper = function(){
+    var element = createElement('div');
+    if( typeof(element.attachShadow) === 'function' ){
+        return element.attachShadow({mode: 'closed'});
+    }
+    return element;
+};
+
+var removeWrapper = function(wrapper){
+    wrapper = wrapper.host || wrapper;
+    if( wrapper.parentNode ){
+        wrapper.parentNode.removeChild(wrapper);
+    }
+}
+
+var appendWrapper = function(parent,wrapper){
+    parent.appendChild(wrapper.host || wrapper);
+}
+
+
 
 exports.getAvailableFonts = function (list) {
     fontList = fontList.concat(extendedFontList);
@@ -104,11 +124,9 @@ exports.getAvailableFonts = function (list) {
     fontList = fontList.filter(function (font, position) {
         return fontList.indexOf(font) === position
     });
-    var h = document.getElementsByTagName('body')[0];
-    var baseFontsDiv = createElement('div');
-    var fontsDiv = createElement('div');
-    // var defaultWidth = {};
-    // var defaultHeight = {};
+    var body = document.getElementsByTagName('body')[0];
+    var baseFontsDiv = createWrapper();
+    var fontsDiv = createWrapper();
     var defaultSize   = {};
     var initializeBaseFontsSpans = function () {
         var spans = [];
@@ -150,8 +168,8 @@ exports.getAvailableFonts = function (list) {
     var baseFontsSpans = initializeBaseFontsSpans();
     var fontsSpans = initializeFontsSpans();
     var available = [];
-    h.appendChild(fontsDiv);
-    h.appendChild(baseFontsDiv);
+    appendWrapper(body,fontsDiv);
+    appendWrapper(body,baseFontsDiv);
     forEach(baseFonts, function (item, index) {
         defaultSize[item] = getSizeString(baseFontsSpans[index])
     });
@@ -160,7 +178,7 @@ exports.getAvailableFonts = function (list) {
             available.push(item);
         }
     });
-    h.removeChild(fontsDiv);
-    h.removeChild(baseFontsDiv);
+    removeWrapper(fontsDiv);
+    removeWrapper(baseFontsDiv);
     return available;
 };

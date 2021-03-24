@@ -2,20 +2,26 @@ var waterfall  = require('./waterfall');
 var x64hash128 = require('./x64hash128');
 var Base64     = require('./base64');
 /**
- *
+ * BrowserHash
  * @constructor
  */
 function Component() {
-    this.cache = 'browserhash';
+    this.useCache = true;
+    this.cacheKey = 'browserhash';
     this.stack = [];
     this.callbacks = [];
     this.hash = null;
     this.data = null;
-    this.restore();
 }
-
 Component.prototype = {
+    cache: function(status){
+        this.useCache = !!status;
+        return this;
+    },
     then: function (fn) {
+        if( this.useCache === true ){
+            this.restore();
+        }
         if (this.hash && this.data) {
             return this.callback(fn);
         }
@@ -23,11 +29,13 @@ Component.prototype = {
         return this.fetch();
     },
     save: function (hash, data) {
+        var result;
         try {
-            window['localStorage'].setItem(this.cache, JSON.stringify({
+            result = JSON.stringify({
                 hash: hash,
                 data: data
-            }));
+            });
+            window['localStorage'].setItem(this.cacheKey, result );
         } catch (e) {
 
         }
@@ -35,14 +43,14 @@ Component.prototype = {
     restore: function () {
         var cache;
         try {
-            cache = window['localStorage'].getItem(this.cache);
+            cache = window['localStorage'].getItem(this.cacheKey);
             cache = JSON.parse(cache);
         } catch (e) {
             cache = null;
         }
         if (cache) {
-            this.hash = cache.hash;
-            this.data = cache.data;
+            this.hash  = cache.hash;
+            this.data  = cache.data;
         }
     },
     fetch: function () {
@@ -51,7 +59,9 @@ Component.prototype = {
         waterfall(this.stack, function (data) {
             this.hash = x64hash128(this.values(data), 31);
             this.data = data;
-            this.save(this.hash, this.data);
+            if( this.useCache === true ) {
+                this.save(this.hash, this.data);
+            }
             this.run();
         }, this);
         return this;
@@ -85,6 +95,7 @@ Component.prototype = {
     },
     add: function (key, callback) {
         this.stack.push({key: key, callback: callback});
+        return this;
     }
 };
 
